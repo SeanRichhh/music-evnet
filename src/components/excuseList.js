@@ -4,10 +4,11 @@ function Excuselist({category, excuse}){
         <>
         <h2>{category}</h2>
         <ul>
-            {excuse.map((item, index) =>{
-                return <li key={index}></li>
+            {excuse.map((excuse, index) =>{
+                return <li key={index}>{excuse.excuse}</li>
             })}
         </ul>
+        
         
         </>
     )
