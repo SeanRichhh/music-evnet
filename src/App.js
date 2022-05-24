@@ -1,22 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import React , {useEffect , useState} from "react"
+import SelectCategory from './components/selectcategory';
+import Excuselist from './components/excuseList';
+
 
 function App() {
+  const [category, setCategory] = useState("");
+
+  const[excuse, setExcuse] = useState(null)
+
+  console.log({excuse})
+  useEffect(() => {
+    if(!category)return
+
+    fetch(`https://excuser.herokuapp.com/v1/excuse/${category}`)
+    .then((res) => res.json())
+    .then((data) => setExcuse(data))
+  }, [category])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="">
+        <SelectCategory setCategory={setCategory}/>
+        {excuse && <Excuselist category={category} excuse={excuse}/>}
       </header>
     </div>
   );
